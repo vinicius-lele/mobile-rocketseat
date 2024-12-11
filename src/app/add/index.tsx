@@ -10,6 +10,7 @@ import { colors } from "@/styles/colors";
 import { Categories } from "@/components/categories";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
+import { linkStorage } from "@/storage/link-storage";
 
 export default function Add(){
     const [category, setCategory] = useState("")
@@ -18,8 +19,9 @@ export default function Add(){
     //const [name, setName] = useState<string>() OU ASSIM
     
 
-    function handleAdd(){
-        if(!category){
+    async function handleAdd(){
+        try{
+            if(!category){
             return Alert.alert("Categoria","Selecione a categoria")
         }
         if(!name.trim()){
@@ -28,7 +30,22 @@ export default function Add(){
         if(!url.trim()){
             return Alert.alert("URL","Informe o link")
         }
-        console.log({category, name, url})
+       
+        await linkStorage.save({ 
+            id: new Date().getTime().toString(),
+            name, 
+            url, 
+            category,
+        })
+
+        const data = await linkStorage.get()
+        console.log(data)
+        console.log(new Date().getTime().toString())
+       
+    }catch(error){
+       // Alert.alert("Erro", "Não foi possível salvar o link")
+        console.log({error})
+    }
     }
 
     return(
@@ -47,7 +64,7 @@ export default function Add(){
             <Categories onChange={setCategory} selected={category}/>
             <View style={styles.form}>
                 <Input placeholder="Nome" onChangeText={setName} autoCorrect={false}/>
-                <Input placeholder="URL" onChangeText={setUrl} />
+                <Input placeholder="URL" onChangeText={setUrl} autoCorrect={false} autoCapitalize="none" />
                 <Button title="Adicionar" onPress={handleAdd} />
             </View>
         </View>
