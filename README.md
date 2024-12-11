@@ -1,27 +1,28 @@
-# Welcome to your Expo app 👋
+# Gerenciador de Links
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Projeto criado com Expo, baseado no minicurso da Rocketseat.
 
-## Get started
+## Iniciando o projeto
+### Você precisa instalar o NODE para dar sequência nos passos abaixo e rodar o projeto sem erros.
 
-1. Install dependencies
+1. Instale as dependências
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Iniciar o App
 
    ```bash
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+Existem várias formas de rodar o projeto, recomendo [Expo Go](https://expo.dev/go), para uma experiência mais fidedigna, uma vez que usa seu próprio dispositivo como emulador.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Para outras formas:
+
+- [Emulador Android](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [Emulador iOS](https://docs.expo.dev/workflow/ios-simulator/)
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
