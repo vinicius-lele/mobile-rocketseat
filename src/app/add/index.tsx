@@ -33,10 +33,16 @@ export default function Add(){
        
         await linkStorage.save({ 
             id: new Date().getTime().toString(),
-            name, 
+            name,
             url, 
             category,
-        })       
+        })
+
+        setName('');       
+        setUrl('');        
+        setCategory(''); 
+        
+        Alert.alert("Sucesso", "O link foi salvo")
         }catch(error){
             Alert.alert("Erro", "Não foi possível salvar o link")
         }
@@ -55,10 +61,18 @@ export default function Add(){
             <Text style={styles.label}>
                 Selecione uma categoria
             </Text>
-            <Categories onChange={setCategory} selected={category}/>
+            <Categories onChange={setCategory} selected={category} value={category} />
             <View style={styles.form}>
-                <Input placeholder="Nome" onChangeText={setName} autoCorrect={false}/>
-                <Input placeholder="URL" onChangeText={setUrl} autoCorrect={false} autoCapitalize="none" />
+                <Input placeholder="Nome" 
+                    onChangeText={setName} 
+                    autoCorrect={false}
+                    value={name}
+                />
+                <Input placeholder="URL" 
+                    onChangeText={setUrl} 
+                    autoCorrect={false} 
+                    autoCapitalize="none"
+                    value={url} />
                 <Button title="Adicionar" onPress={handleAdd} />
             </View>
         </View>
