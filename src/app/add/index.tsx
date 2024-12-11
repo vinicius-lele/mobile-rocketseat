@@ -3,7 +3,7 @@ import { useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
-import { router } from "expo-router"
+import { router, useNavigation } from "expo-router"
 
 import { styles } from "./styles";
 import { colors } from "@/styles/colors";
@@ -36,13 +36,14 @@ export default function Add(){
             name,
             url, 
             category,
-        })
+        })        
+        Alert.alert("Sucesso", "O link foi salvo",[
+            {
+                text:"Ok", 
+                onPress:()=> router.back(),
+            }
+        ])
 
-        setName('');       
-        setUrl('');        
-        setCategory(''); 
-        
-        Alert.alert("Sucesso", "O link foi salvo")
         }catch(error){
             Alert.alert("Erro", "Não foi possível salvar o link")
         }
@@ -61,18 +62,16 @@ export default function Add(){
             <Text style={styles.label}>
                 Selecione uma categoria
             </Text>
-            <Categories onChange={setCategory} selected={category} value={category} />
+            <Categories onChange={setCategory} selected={category} />
             <View style={styles.form}>
                 <Input placeholder="Nome" 
                     onChangeText={setName} 
                     autoCorrect={false}
-                    value={name}
                 />
                 <Input placeholder="URL" 
                     onChangeText={setUrl} 
                     autoCorrect={false} 
-                    autoCapitalize="none"
-                    value={url} />
+                    autoCapitalize="none" />
                 <Button title="Adicionar" onPress={handleAdd} />
             </View>
         </View>
