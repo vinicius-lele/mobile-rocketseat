@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react"
-import { View, Image, TouchableOpacity, FlatList, Modal, Text, Alert } from "react-native"
+import { View, Image, TouchableOpacity, FlatList, Modal, Text, Alert, Linking } from "react-native"
 import { MaterialIcons } from "@expo/vector-icons"
 
 import { styles } from "./styles"
@@ -34,6 +34,34 @@ export default function Index(){
     function handleDetails(selected: LinkStorage){
         setShowModal(true)
         setLink(selected)
+    }
+
+    async function linkRemove(){
+        try{
+            await linkStorage.remove(link.id)
+            getLinks()
+            setShowModal(false)
+         }
+        catch(error){
+            Alert.alert("Erro", "Não foi possível excluir")
+        }
+    }
+
+    function hadleRemove(){
+            Alert.alert("Excluir","Deseja realmente excluir?", [
+                {style:"cancel", text:"Não"},
+                {text: "Sim", onPress: linkRemove}
+            ]) 
+    }
+
+    async function handleOpen(){
+        try{
+            await Linking.openURL(link.url)
+            setShowModal(false)
+        }
+        catch(error){
+            Alert.alert("Link","Não foi possível abrir o link")
+        }
     }
 
     useFocusEffect(useCallback(()=>{
@@ -83,8 +111,8 @@ export default function Index(){
                         </Text>
 
                         <View style={styles.modalFooter}>
-                            <Option name="Excluir" icon="delete" variant="secondary" />
-                            <Option name="Abrir" icon="language" />
+                            <Option name="Excluir" icon="delete" variant="secondary" onPress={hadleRemove} />
+                            <Option name="Abrir" icon="language" onPress={handleOpen}/>
                         </View>
                     </View>
                 </View>
